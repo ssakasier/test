@@ -24,7 +24,7 @@ def clone(user, repo):
     dir = f"{args.source}/{user}-{repo}"
     try:
         ret = subprocess.run(
-            f'git clone --depth 1 --config "http.sslverify=false" https://1:1@github.com/{user}/{repo} {dir}',
+            f"git clone --depth 1 --config https://1:1@github.com/{user}/{repo} {dir}",
             capture_output=True,
             encoding="utf-8",
             timeout=1800,
@@ -125,13 +125,13 @@ if __name__ == "__main__":
         False,
     )
 
-    pathlib.Path(args.source).mkdir(parents=True, exist_ok=True) 
-    pathlib.Path(args.filtered).mkdir(parents=True, exist_ok=True) 
+    pathlib.Path(args.source).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(args.filtered).mkdir(parents=True, exist_ok=True)
 
     with open(args.repos) as f:
         repos = f.readlines()[:10]
         repo_done = os.listdir(args.source)
 
-        Parallel(n_jobs=args.njobs, prefer='processes', batch_size=10)(
+        Parallel(n_jobs=args.njobs, prefer="processes", batch_size=10)(
             delayed(print)(index, line) for index, line in enumerate(repos)
         )
