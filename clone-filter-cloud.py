@@ -24,7 +24,7 @@ def clone(user, repo):
     dir = f"{args.source}/{user}-{repo}"
     try:
         ret = subprocess.run(
-            f'git clone --depth 1 --config "http.proxy=socks5://127.0.0.1:7788" https://1:1@github.com/{user}/{repo} {dir}',
+            f'git clone --depth 1 --config "http.sslverify=false" https://1:1@github.com/{user}/{repo} {dir}',
             capture_output=True,
             encoding="utf-8",
             timeout=1800,
