@@ -150,9 +150,9 @@ if __name__ == "__main__":
     pathlib.Path(args.filtered).mkdir(parents=True, exist_ok=True)
 
     with open(args.repos) as f:
-        repos = f.readlines()[:10]
+        repos = f.readlines()
         repo_done = os.listdir(args.source)
 
         Parallel(n_jobs=args.njobs, prefer="processes", batch_size=10)(
-            delayed(print)(index, line) for index, line in enumerate(repos)
+            delayed(download_repo)(index, line) for index, line in enumerate(repos)
         )
